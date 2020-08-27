@@ -367,5 +367,13 @@ namespace Kogane
 		{
 			return self == null || self.gameObject == null;
 		}
+
+		/// <summary>
+		/// このコンポーネントがアタッチされているゲームオブジェクトを Destroy します
+		/// </summary>
+		public static void DestroyGameObject( this Component self )
+		{
+			Object.Destroy( self.gameObject );
+		}
 	}
 }
