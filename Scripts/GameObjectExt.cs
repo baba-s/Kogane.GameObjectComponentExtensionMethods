@@ -28,6 +28,7 @@ namespace Kogane
 		/// <summary>
 		/// すべての子オブジェクトを返します
 		/// </summary>
+		[NotNull]
 		public static GameObject[] GetChildren( this GameObject self )
 		{
 			return self.GetChildren( false );
@@ -36,6 +37,7 @@ namespace Kogane
 		/// <summary>
 		/// すべての子オブジェクトを返します
 		/// </summary>
+		[NotNull]
 		public static GameObject[] GetChildren( this GameObject self, bool includeInactive )
 		{
 			return self
@@ -70,6 +72,7 @@ namespace Kogane
 		/// <summary>
 		/// 自分自身を含まない GetComponentsInChildren を実行します
 		/// </summary>
+		[NotNull]
 		public static T[] GetComponentsInChildrenWithoutSelf<T>( this GameObject self ) where T : Component
 		{
 			return self.GetComponentsInChildrenWithoutSelf<T>( false );
@@ -78,6 +81,7 @@ namespace Kogane
 		/// <summary>
 		/// 自分自身を含まない GetComponentsInChildren を実行します
 		/// </summary>
+		[NotNull]
 		public static T[] GetComponentsInChildrenWithoutSelf<T>( this GameObject self, bool includeInactive ) where T : Component
 		{
 			return self
@@ -310,6 +314,7 @@ namespace Kogane
 		/// <summary>
 		/// Hierarchy におけるパスを返します
 		/// </summary>
+		[NotNull]
 		public static string GetHierarchyPath( this GameObject self )
 		{
 			var path   = self.name;
