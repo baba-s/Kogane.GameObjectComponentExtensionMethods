@@ -1,4 +1,4 @@
-# UniGameObjectComponentExtensionMethods
+# Kogane Game Object Component Extension Methods
 
 GameObject、Component 型の拡張メソッド
 
@@ -280,7 +280,7 @@ boxCollider.gameObject.SetActive( true );
 boxCollider.gameObject.AddComponent<Rigidbody>();
 ```
 
-通常では上記のように gameObject プロパティを介して関数にアクセスする必要があるコードを  
+通常では上記のように gameObject プロパティを介して関数にアクセスする必要があるコードを
 
 ```cs
 boxCollider.SetActive( true );

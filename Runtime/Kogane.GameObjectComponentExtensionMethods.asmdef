@@ -1,5 +1,5 @@
 ﻿{
-    "name": "UniGameObjectComponentExtensionMethods",
+    "name": "Kogane.GameObjectComponentExtensionMethods",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
