@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -388,6 +389,22 @@ namespace Kogane
         {
             if ( self == null || self.gameObject == null ) return;
             Object.Destroy( self.gameObject );
+        }
+
+        /// <summary>
+        /// コンポーネントのリストをもとにすべてのゲームオブジェクトを Destroy して
+        /// リストをクリアします
+        /// </summary>
+        public static void DestroyGameObjectAllAndClear<T>( this List<T> self ) where T : Component
+        {
+            for ( var i = 0; i < self.Count; i++ )
+            {
+                var component = self[ i ];
+                if ( component == null ) continue;
+                Object.Destroy( component.gameObject );
+            }
+
+            self.Clear();
         }
     }
 }
