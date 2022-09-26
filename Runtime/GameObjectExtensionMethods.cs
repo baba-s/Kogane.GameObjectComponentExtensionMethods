@@ -355,5 +355,14 @@ namespace Kogane
             if ( self == null ) return;
             self.ToggleActive( isActive );
         }
+
+        /// <summary>
+        /// 指定されたゲームオブジェクトが null でなければ Destroy します
+        /// </summary>
+        public static void DestroyIfNotNull( this GameObject self )
+        {
+            if ( self == null ) return;
+            Object.Destroy( self );
+        }
     }
 }
