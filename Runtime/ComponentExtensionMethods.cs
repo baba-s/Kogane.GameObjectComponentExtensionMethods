@@ -375,6 +375,15 @@ namespace Kogane
         }
 
         /// <summary>
+        /// このコンポーネントを Destroy します
+        /// </summary>
+        public static void DestroyIfNotNull( this Component self )
+        {
+            if ( self == null ) return;
+            Object.Destroy( self );
+        }
+
+        /// <summary>
         /// このコンポーネントがアタッチされているゲームオブジェクトを Destroy します
         /// </summary>
         public static void DestroyGameObject( this Component self )
@@ -405,6 +414,49 @@ namespace Kogane
             }
 
             self.Clear();
+        }
+
+        /// <summary>
+        /// 自分自身を含まない GetComponentInParent を実行します
+        /// </summary>
+        [CanBeNull]
+        public static T GetComponentInParentWithoutSelf<T>( this Component self ) where T : Component
+        {
+            return self.GetComponentInParentWithoutSelf<T>( false );
+        }
+
+        /// <summary>
+        /// 自分自身を含まない GetComponentInParent を実行します
+        /// </summary>
+        [CanBeNull]
+        public static T GetComponentInParentWithoutSelf<T>( this Component self, bool includeInactive ) where T : Component
+        {
+            return self
+                    .GetComponentsInParentWithoutSelf<T>( includeInactive )
+                    .FirstOrDefault()
+                ;
+        }
+
+        /// <summary>
+        /// 自分自身を含まない GetComponentsInParent を実行します
+        /// </summary>
+        [NotNull]
+        public static T[] GetComponentsInParentWithoutSelf<T>( this Component self ) where T : Component
+        {
+            return self.GetComponentsInParentWithoutSelf<T>( false );
+        }
+
+        /// <summary>
+        /// 自分自身を含まない GetComponentsInParent を実行します
+        /// </summary>
+        [NotNull]
+        public static T[] GetComponentsInParentWithoutSelf<T>( this Component self, bool includeInactive ) where T : Component
+        {
+            return self
+                    .GetComponentsInParent<T>( includeInactive )
+                    .Where( x => self.gameObject != x.gameObject )
+                    .ToArray()
+                ;
         }
     }
 }

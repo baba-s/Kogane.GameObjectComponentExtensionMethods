@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿// ReSharper disable RedundantUsingDirective
+
+using System.Diagnostics;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -339,6 +342,18 @@ namespace Kogane
         }
 
         /// <summary>
+        /// アクティブかどうかを設定します
+        /// </summary>
+#if UNITY_EDITOR
+#else
+        [Conditional( "Uj54rtVkysGydTs3" )]
+#endif
+        public static void SetActiveEditorOnly( this GameObject self, bool isActive )
+        {
+            self.SetActive( isActive );
+        }
+
+        /// <summary>
         /// 指定された状態と逆の状態にしてから指定された状態になります
         /// </summary>
         public static void ToggleActive( this GameObject self, bool isActive )
@@ -363,6 +378,49 @@ namespace Kogane
         {
             if ( self == null ) return;
             Object.Destroy( self );
+        }
+
+        /// <summary>
+        /// 自分自身を含まない GetComponentInParent を実行します
+        /// </summary>
+        [CanBeNull]
+        public static T GetComponentInParentWithoutSelf<T>( this GameObject self ) where T : Component
+        {
+            return self.GetComponentInParentWithoutSelf<T>( false );
+        }
+
+        /// <summary>
+        /// 自分自身を含まない GetComponentInParent を実行します
+        /// </summary>
+        [CanBeNull]
+        public static T GetComponentInParentWithoutSelf<T>( this GameObject self, bool includeInactive ) where T : Component
+        {
+            return self
+                    .GetComponentsInParentWithoutSelf<T>( includeInactive )
+                    .FirstOrDefault()
+                ;
+        }
+
+        /// <summary>
+        /// 自分自身を含まない GetComponentsInParent を実行します
+        /// </summary>
+        [NotNull]
+        public static T[] GetComponentsInParentWithoutSelf<T>( this GameObject self ) where T : Component
+        {
+            return self.GetComponentsInParentWithoutSelf<T>( false );
+        }
+
+        /// <summary>
+        /// 自分自身を含まない GetComponentsInParent を実行します
+        /// </summary>
+        [NotNull]
+        public static T[] GetComponentsInParentWithoutSelf<T>( this GameObject self, bool includeInactive ) where T : Component
+        {
+            return self
+                    .GetComponentsInParent<T>( includeInactive )
+                    .Where( x => self != x.gameObject )
+                    .ToArray()
+                ;
         }
     }
 }
