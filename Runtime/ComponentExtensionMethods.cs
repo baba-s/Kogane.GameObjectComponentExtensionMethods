@@ -2,6 +2,7 @@
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Kogane
 {
@@ -223,6 +224,14 @@ namespace Kogane
         public static void SetParent( this Component self, GameObject parent )
         {
             self.transform.SetParent( parent != null ? parent.transform : null );
+        }
+
+        /// <summary>
+        /// 親オブジェクトに null を設定します
+        /// </summary>
+        public static void SetParentNull( this Component self )
+        {
+            self.transform.SetParent( null );
         }
 
         /// <summary>
@@ -457,6 +466,22 @@ namespace Kogane
                     .Where( x => self.gameObject != x.gameObject )
                     .ToArray()
                 ;
+        }
+
+        /// <summary>
+        /// DontDestroyOnLoad します
+        /// </summary>
+        public static void DontDestroyOnLoad( this Component self )
+        {
+            Object.DontDestroyOnLoad( self );
+        }
+
+        /// <summary>
+        /// DontDestroyOnLoad を解除します
+        /// </summary>
+        public static void DestroyOnLoad( this Component self )
+        {
+            SceneManager.MoveGameObjectToScene( self.gameObject, SceneManager.GetActiveScene() );
         }
     }
 }

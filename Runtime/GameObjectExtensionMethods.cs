@@ -228,6 +228,14 @@ namespace Kogane
         }
 
         /// <summary>
+        /// 親オブジェクトに null を設定します
+        /// </summary>
+        public static void SetParentNull( this GameObject self )
+        {
+            self.transform.SetParent( null );
+        }
+
+        /// <summary>
         /// 子オブジェクトが存在する場合 true を返します
         /// </summary>
         public static bool HasChild( this GameObject self )
